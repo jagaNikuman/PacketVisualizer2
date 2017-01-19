@@ -185,7 +185,7 @@ class MovePacketObject {
 		scene.add(sphere);
 	}
 	move() {
-		console.log(this.availables[0]);
+		// console.log(this.availables[0]);
 
 		let sinGain = 150;
 		let smooth = 100;
@@ -205,17 +205,18 @@ class MovePacketObject {
 				packet.position.z = client.position.z - dz*this.availables[2][j];
 				this.availables[2][j]++;
 				if(this.availables[2][j] > smooth) {
-					this.drop(j-deleted);
+					this.drop(j-deleted, this.availables[0][j-deleted]);
 					deleted++;
 				}
 			}
 		}
 		
 	}
-	drop(id) {
-		this.availables[0].splice(id, 1);
-		this.availables[1].splice(id, 1);
-		this.availables[2].splice(id, 1);
+	drop(arrayNum, id) {
+		this.availables[0].splice(arrayNum, 1);
+		this.availables[1].splice(arrayNum, 1);
+		this.availables[2].splice(arrayNum, 1);
+		console.log("packet" + id);
 		scene.remove(scene.getObjectByName("packet"+id));
 	}
 	available() {
